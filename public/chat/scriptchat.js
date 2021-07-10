@@ -5,13 +5,13 @@ const user=prompt('enter your name');
 socket.emit('join-chat-room',RoomId,user);
 console.log('joined already')
 
+// when  new user connects to server it shows in chat
 socket.on('user-connected', username=> {
   let messages = document.querySelector(".messages");
   messages.innerHTML=messages.innerHTML+
   `<li class="message" style='background-color:grey;text-align:center;'>
      <span> # ${username} joined #</span>
      </li>`
-    //socket.emit('message', username+"connected");
   })
   let text = $("#chat_message");
 
@@ -26,9 +26,8 @@ socket.on('user-connected', username=> {
   
   messages.scrollTop=messages.scrollHeight;
   socket.on("createMessage", (message,userName) => {
-    /*
-    $("ul").append(`<li class="message"><b>user</b><br/>${message}</li>`);*/
    
+   //appending message received to chat window
     messages.innerHTML =
     messages.innerHTML +
     `<li class="message" >
@@ -39,6 +38,7 @@ socket.on('user-connected', username=> {
         <br>
     </li>`;
     scrollToBottom()})
+     //when the user gets disconnected,it shows in the chat
     socket.on('user-disconnected', username=> {
       let messages = document.querySelector(".messages");
       messages.innerHTML=messages.innerHTML+

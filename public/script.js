@@ -1,4 +1,3 @@
-
 const socket = io('/')
 const videoGrid = document.getElementById('video-grid')
 const myPeer = new Peer(undefined, {
@@ -6,8 +5,9 @@ const myPeer = new Peer(undefined, {
   host: '/',
   port: '443'
 })
+//take user name as soon as user enters
 const user=prompt('enter your name');
-//let user='mylovely';
+
 
 let myVideoStream;
 const myVideo = document.createElement('video')
@@ -17,13 +17,13 @@ var getUserMedia =
   navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
   navigator.mozGetUserMedia;
-
 navigator.mediaDevices.getUserMedia({
   video: true,
   audio: true
 }).then(stream => {
   myVideoStream = stream;
   addVideoStream(myVideo, stream)
+  // answering the call by sending our stream
   myPeer.on('call', call => {
     call.answer(stream)
     const video = document.createElement('video')
@@ -31,10 +31,11 @@ navigator.mediaDevices.getUserMedia({
       addVideoStream(video, userVideoStream)
     })
   })
-
+   //when new user gets connected, connecting to that user
   socket.on('user-connected1', userId => {
     connectToNewUser(userId, stream)
   })
+  //chat
   let text = $("#chat_message");
   // when press enter send message
   $('html').keydown(function (e) {
@@ -45,11 +46,8 @@ navigator.mediaDevices.getUserMedia({
   });
   let messages = document.querySelector(".messages");
   socket.on("createMessage1", (message,userName) => {
-    console.log(user);
-    console.log('hi');
-    console.log(userName);
-    /*
-    $("ul").append(`<li class="message"><b>user</b><br/>${message}</li>`);*/
+  
+    // checking username -->console.log(userName);
     messages.innerHTML =
     messages.innerHTML +
     `<li class="message">
@@ -65,13 +63,13 @@ navigator.mediaDevices.getUserMedia({
 socket.on('user-disconnected1', userId => {
   if (peers[userId]) peers[userId].close()
 })
-//added
+
 
 myPeer.on("call", function (call) {
   getUserMedia(
     { video: true, audio: true },
     function (stream) {
-      call.answer(stream); // Answer the call with an A/V stream.
+      call.answer(stream); // Answer the call with an Audio and video stream.
       const video = document.createElement("video");
       call.on("stream", function (remoteStream) {
         addVideoStream(video, remoteStream);
@@ -85,10 +83,13 @@ myPeer.on("call", function (call) {
 
 
 myPeer.on('open', (id)=> {
-  console.log(user);console.log('about to join room');
+  //checking whether user name is taken correctly
+  console.log(user);
+  console.log('about to join room');
   socket.emit('join-room', ROOM_ID, id,user)
 })
 
+// connecting to new user by calling to them
 function connectToNewUser(userId, stream) {
   const call = myPeer.call(userId, stream)
   const video = document.createElement('video')
@@ -102,6 +103,7 @@ function connectToNewUser(userId, stream) {
   peers[userId] = call
 }
 
+// adding the video stream to the page
 function addVideoStream(video, stream) {
   video.srcObject = stream
   video.addEventListener('loadedmetadata', () => {
@@ -110,14 +112,12 @@ function addVideoStream(video, stream) {
   videoGrid.append(video)
 }
 
-
-
 const scrollToBottom = () => {
   var d = $('.main__chat_window');
   d.scrollTop(d.prop("scrollHeight"));
 }
 
-
+// To mute and unmute 
 const muteUnmute = () => {
   const enabled = myVideoStream.getAudioTracks()[0].enabled;
   if (enabled) {
@@ -129,6 +129,7 @@ const muteUnmute = () => {
   }
 }
 
+// To play and pause video
 const playStop = () => {
   console.log('object')
   let enabled = myVideoStream.getVideoTracks()[0].enabled;
@@ -141,6 +142,7 @@ const playStop = () => {
   }
 }
 
+// setting mute button
 const setMuteButton = () => {
   const html = `
     <i class="fas fa-microphone"></i>
@@ -148,7 +150,7 @@ const setMuteButton = () => {
   `
   document.querySelector('.main__mute_button').innerHTML = html;
 }
-
+//setting unmute button
 const setUnmuteButton = () => {
   const html = `
     <i class="unmute fas fa-microphone-slash"></i>
@@ -156,7 +158,7 @@ const setUnmuteButton = () => {
   `
   document.querySelector('.main__mute_button').innerHTML = html;
 }
-
+// To stop video
 const setStopVideo = () => {
   const html = `
     <i class="fas fa-video"></i>
@@ -165,7 +167,7 @@ const setStopVideo = () => {
   document.querySelector('.main__video_button').innerHTML = html;
 }
 
-
+// To play video
 const setPlayVideo = () => {
   const html = `
   <i class="stop fas fa-video-slash"></i>
@@ -175,29 +177,25 @@ const setPlayVideo = () => {
 }
 var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
-
+// To getlink when invite button is clicked
 const getlink=()=>{
-   
   var content=document.getElementById("content");
   const s=window.location.href;
   content.innerHTML=s;
-
   modal.style.display = "block";
-  
- 
 }
 span.onclick = function() {
   modal.style.display = "none";
 }
 
+// To close the modal ,when enter button is clicked
 const nodisplay=()=>{
-  
 var modal2=document.getElementById("modal2");
 modal2.style.display="none";
 }
 
+// To toggle chat,when chat icon is clicked
 const togglechat=(e)=>{
-
   e.classList.toggle("active");
   document.body.classList.toggle("videochat");
 }

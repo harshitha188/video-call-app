@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script> 
+   const m="<%= roomid1%>"
+    const n="<%= roomid2%>"
+    sessionStorage.setItem('m',m);
+    window.onload = function() {
+  document.getElementById("btn1").innerHTML= `<a href='${m}'>Start video call</a>`;
+  document.getElementById("btn2").innerHTML= `<a href='/chat/${n}'>Start Chat</a>`;
+  
+  }
+  
+    </script>
+    <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
+      <link rel="stylesheet" href="open.css">
+    
+</head>
+<body>
+    <div class='main'> 
+           <div id='top1'style='text-align: center; margin-top:150px'><h1 style='font-size: 50px; color:white'>
+            Live Video calling & Chat</h1>
+        </div>
+            <div style='text-align:center;font-size: 25px; color:white '>
+           <b><p>Make Socializing more fun </p>
+            <p>with</p> 
+            <p>video calling and chat </p> 
+           </b>
+           </div>
+         <div id='videochat' style='margin:auto;text-align: center; display:flex;'>
+                 <div>
+                <button style='margin-right:70px;padding:10px'id='btn1'>
+                    Start Video Call</button>
+            </div>
+            <div>
+               <button style='margin:auto;padding:10px;'id='btn2' >Start Chat</button>
+               
+            </div>  
+       </div></div>
+    <script> 
+    
+        </script>
+</body>
+</html>

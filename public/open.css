@@ -1,0 +1,64 @@
+.main {
+    height: 100vh;
+    display: flex;
+    border:0px;
+    padding:0px;
+    flex-direction: column;
+  
+}
+body{
+    background-image: url('new3.jpeg');
+    background-repeat:no-repeat;
+    background-size:cover;
+
+}
+a{
+    text-decoration: none;
+}
+.main-left{
+    flex: 0.5;
+    display: flex;
+    flex-direction: column;
+}
+
+
+#videochat
+{
+    display:flex;
+
+}
+.main-right{
+ flex: 0.5;
+display: flex;
+flex-direction: column;
+}
+body{
+    height: 100%;
+
+}
+#btn:hover{
+    cursor: pointer;
+    background-color:rgb(148, 185, 253);
+}
+#btn1,#btn2{
+    display:block;
+    background-color: gold;
+    height: 50px;
+    width: 150px;
+    border-radius: 25px;
+    }
+#bckgrnd{
+   
+    color:white;
+    justify-content:center;
+    text-align:center;
+    padding: 10px;
+    margin: auto;
+   width:40%;
+   background-repeat:no-repeat;
+   background-size:cover;
+   object-fit: contain;
+    height: 250px;
+  
+  
+}

@@ -7,9 +7,8 @@
   <title>chat page</title>
   <script>
      
-    const RoomId="<%= roomid%>";
+ const RoomId="<%= roomid%>";
 const m=sessionStorage.getItem('m');
-console.log(m);
     window.onload = function() {
   document.getElementById("btn").innerHTML= `<a href='/${m}'>Start video call</a>`;}
     
